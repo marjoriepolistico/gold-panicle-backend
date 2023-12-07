@@ -52,7 +52,9 @@ class UserProfilesController extends Controller
         return UserProfile::findOrFail($id);
     }
 
-
+    /**
+     * Update the specified resource (firstname).
+     */
     public function firstname(UserProfilesRequest $request, string $id)
     {
         $user_profile = UserProfile::findOrFail($id);
@@ -66,6 +68,9 @@ class UserProfilesController extends Controller
         return $user_profile;
     }
 
+    /**
+     * Update the specified resource (lastname).
+     */
     public function lastname(UserProfilesRequest $request, string $id)
     {
         $user_profile = UserProfile::findOrFail($id);
@@ -79,6 +84,9 @@ class UserProfilesController extends Controller
         return $user_profile;
     }
 
+    /**
+     * Update the specified resource (middle initial).
+     */
     public function middle_initial(UserProfilesRequest $request, string $id)
     {
         $user_profile = UserProfile::findOrFail($id);
@@ -92,6 +100,9 @@ class UserProfilesController extends Controller
         return $user_profile;
     }
 
+    /**
+     * Update the specified resource (extension).
+     */
     public function ext(UserProfilesRequest $request, string $id)
     {
         $user_profile = UserProfile::findOrFail($id);
@@ -105,6 +116,9 @@ class UserProfilesController extends Controller
         return $user_profile;
     }
 
+    /**
+     * Update the specified resource (course).
+     */
     public function course(UserProfilesRequest $request, string $id)
     {
         $user_profile = UserProfile::findOrFail($id);
@@ -118,6 +132,9 @@ class UserProfilesController extends Controller
         return $user_profile;
     }
 
+    /**
+     * Update the specified resource (year level).
+     */
     public function year_level(UserProfilesRequest $request, string $id)
     {
         $user_profile = UserProfile::findOrFail($id);

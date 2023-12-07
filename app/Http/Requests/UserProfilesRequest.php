@@ -58,15 +58,6 @@
                 ];
             }
 
-            // return[
-            //     'firstname' => 'required|string|max:255',
-            //     'lastname' => 'required|string|max:255',
-            //     'middle_initial' => 'string|max:255|nullable',
-            //     'ext' => 'string|max:255|nullable',
-            //     'course' => 'required|string|max:255|',
-            //     'year_level' => 'required|integer'
-            // ];
-
         }
 
     }

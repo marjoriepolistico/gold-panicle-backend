@@ -14,11 +14,7 @@ return new class extends Migration
         Schema::create('authors', function (Blueprint $table) {
             $table->id('author_id');
             $table->string('position');
-        });
-
-        Schema::table('authors', function (Blueprint $table) {
-            $table->unsignedBigInteger('account_id');
-            $table->foreign('account_id')->references('account_id')->on('user_accounts');
+            $table->timestamps();
         });
     }
 
