@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserProfilesController;
 use App\Http\Controllers\Api\UserAccountsController;
 use App\Http\Controllers\Api\AuthorsController;
-
+use App\Http\Requests\AuthorsRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -89,7 +89,45 @@ Route::controller(CoverRequestsController::class)->group(function () {
     Route::get('/cover',                             'index');
     Route::post('/cover',                            'store')->name('store');
     Route::get('/cover/{id}',                        'show');
-    Route::put('/cover/{id}',                        'update');
+    Route::put('/cover/{id}',                        'update')->name('update');;
     Route::delete('/cover/{id}',                     'destroy');
 
+});
+
+Route::controller(AuthorLogsController::class)->group(function () {
+    Route::get('/authlog',                             'index');
+    Route::post('/authlog',                            'store')->name('store');
+    Route::get('/authlog/{id}',                        'show');
+    Route::put('/authlog/{id}',                        'update')->name('update');;
+    Route::delete('/authlog/{id}',                     'destroy');
+});
+
+Route::controller(PublicationsController::class)->group(function () {
+    Route::get('/publication',                          'index');
+    Route::post('/publication',                         'store')->name('store');
+    Route::get('/publication/{id}',                     'show');
+    Route::put('/publication/{id}',                     'update');
+    Route::delete('/publication/{id}',                  'destroy');
+    Route::put('/publication/title/{id}',               'title')->name('publication.title');
+    Route::put('/publication/description/{id}',         'description')->name('publication.description');
+    Route::put('/publication/image/{id}',               'image')->name('publication.image');
+    Route::put('/publication/category/{id}',            'category')->name('publication.category');
+});
+
+Route::controller(PublicationManagementsController::class)->group(function () {
+    Route::get('/management',                          'index');
+    Route::post('/management',                         'store')->name('store');
+    Route::get('/management/{id}',                     'show');
+    Route::put('/management/{id}',                     'update');
+    Route::delete('/management/{id}',                  'destroy');
+    Route::put('/management/action/{id}',              'action')->name('management.action');
+    Route::put('/management/comment/{id}',             'comment')->name('management.comment');
+});
+
+Route::controller(ManagementLogsController::class)->group(function () {
+    Route::get('/mnglog',                             'index');
+    Route::post('/mnglog',                            'store')->name('store');
+    Route::get('/mnglog/{id}',                        'show');
+    Route::put('/mnglog/{id}',                        'update')->name('update');;
+    Route::delete('/mnglog/{id}',                     'destroy');
 });

@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CoverRequestsRequest;
-use App\Models\CoverRequest;
+use App\Http\Requests\ManagementLogsRequest;
+use App\Models\ManagementLogs;
 use Illuminate\Http\Request;
 
-class CoverRequestsController extends Controller
+class ManagementLogsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return CoverRequest::all();
+        return ManagementLogs::all();
     }
 
     /**
@@ -22,36 +22,36 @@ class CoverRequestsController extends Controller
      */
     public function show(string $id)
     {
-        return CoverRequest::findOrFail($id);
+        return ManagementLogs::findOrFail($id);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CoverRequestsRequest $request)
+    public function store(ManagementLogsRequest $request)
     {
         $validated = $request->validated();
 
-        $cvr = CoverRequest::create($validated);
+        $mlogs = ManagementLogs::create($validated);
 
-        return $cvr;
+        return $mlogs;
     }
 
     
     /**
      * Update the specified resource in storage.
      */
-    public function update(CoverRequestsRequest $request, string $id)
+    public function update(ManagementLogsRequest $request, string $id)
     {
-        $cvr = CoverRequest::findOrFail($id);
+        $mlogs = ManagementLogs::findOrFail($id);
 
         $validated = $request->validated();
 
-        $cvr->status = $validated['status'];
+        $mlogs->action = $validated['action'];
 
-        $cvr->save();
+        $mlogs->save();
 
-        return $cvr;
+        return $mlogs;
     }
 
 
@@ -60,11 +60,10 @@ class CoverRequestsController extends Controller
      */
     public function destroy(string $id)
     {
-        $author = CoverRequest::findOrFail($id);
+        $mlogs = ManagementLogs::findOrFail($id);
 
-        $author->delete();
+        $mlogs->delete();
 
-        return $author;
+        return $mlogs;
     }
 }
-

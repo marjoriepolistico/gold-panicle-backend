@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CoverRequestsRequest;
-use App\Models\CoverRequest;
+use App\Http\Requests\AuthorLogsRequest;
+use App\Models\AuthorLogs;
 use Illuminate\Http\Request;
 
-class CoverRequestsController extends Controller
+class AuthorLogsController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return CoverRequest::all();
+        return AuthorLogs::all();
     }
 
     /**
@@ -22,36 +22,36 @@ class CoverRequestsController extends Controller
      */
     public function show(string $id)
     {
-        return CoverRequest::findOrFail($id);
+        return AuthorLogs::findOrFail($id);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CoverRequestsRequest $request)
+    public function store(AuthorLogsRequest $request)
     {
         $validated = $request->validated();
 
-        $cvr = CoverRequest::create($validated);
+        $author = AuthorLogs::create($validated);
 
-        return $cvr;
+        return $author;
     }
 
     
     /**
      * Update the specified resource in storage.
      */
-    public function update(CoverRequestsRequest $request, string $id)
+    public function update(AuthorLogsRequest $request, string $id)
     {
-        $cvr = CoverRequest::findOrFail($id);
+        $author = AuthorLogs::findOrFail($id);
 
         $validated = $request->validated();
 
-        $cvr->status = $validated['status'];
+        $author->action = $validated['action'];
 
-        $cvr->save();
+        $author->save();
 
-        return $cvr;
+        return $author;
     }
 
 
@@ -60,11 +60,10 @@ class CoverRequestsController extends Controller
      */
     public function destroy(string $id)
     {
-        $author = CoverRequest::findOrFail($id);
+        $author = AuthorLogs::findOrFail($id);
 
         $author->delete();
 
         return $author;
     }
 }
-
