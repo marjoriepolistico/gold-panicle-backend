@@ -4,15 +4,33 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class UserAccount extends Model
+
+class UserAccount extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, HasApiTokens, Notifiable;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'user_accounts';
+
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'account_id';
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
+     *
      */
     protected $fillable = [
         'role',
@@ -38,4 +56,9 @@ class UserAccount extends Model
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function userProfile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
 }

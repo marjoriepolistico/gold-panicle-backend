@@ -21,27 +21,15 @@ class UserProfilesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserProfilesRequest $request)
-    {
+    public function store(UserProfilesRequest $request){
+
         $validated = $request->validated();
 
-        // Retrieve the user profile based on the provided data
-        $userProfile = UserProfile::where('firstname', $validated['firstname'])
-                                ->where('lastname', $validated['lastname'])
-                                ->where('middle_initial', $validated['middle_initial'])
-                                ->where('ext', $validated['ext'])
-                                ->where('course', $validated['course'])
-                                ->where('year_level', $validated['year_level'])
-                                ->first();
-
-        // If the user profile doesn't exist, create it
-        if (!$userProfile) {
-            $userProfile = UserProfile::create($validated);
-        }
+        $userProfile = UserProfile::create($validated);
 
         return $userProfile;
+        
     }
-
 
 
     /**
@@ -61,7 +49,7 @@ class UserProfilesController extends Controller
 
         $validated = $request->validated();
 
-        $user_profile->firstname = $validated['firstname']; 
+        $user_profile->firstname = $validated['firstname'];
 
         $user_profile->save();
 
@@ -77,7 +65,7 @@ class UserProfilesController extends Controller
 
         $validated = $request->validated();
 
-        $user_profile->lastname = $validated['lastname']; 
+        $user_profile->lastname = $validated['lastname'];
 
         $user_profile->save();
 
@@ -93,7 +81,7 @@ class UserProfilesController extends Controller
 
         $validated = $request->validated();
 
-        $user_profile->middle_initial = $validated['middle_initial']; 
+        $user_profile->middle_initial = $validated['middle_initial'];
 
         $user_profile->save();
 
@@ -147,7 +135,6 @@ class UserProfilesController extends Controller
 
         return $user_profile;
     }
-
 
     /**
      * Remove the specified resource from storage.

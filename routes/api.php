@@ -19,27 +19,30 @@ use App\Http\Requests\AuthorsRequest;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::controller(AuthController::class)->group(function () {
+    Route::post('/login',   'login')->name('account.login');
+    Route::post('/logout',  'logout');
+});
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/account', function (Request $request) {
     return $request->user();
 });
 
+Route::controller(RegisterController::class)->group(function () {
+        Route::post('/register',                         'register')->name('account.store');
+        Route::post('/register/{account_id}',            'completeRegistration')->name('store');
+});
 
-Route::post('/store', [UserProfilesController::class, 'store'])->name('store');
-//Route::post('/account/store', [UserAccountsController::class, 'store'])->name('store');;
-//Route::post('/author', [AuthorsController::class, 'store'])->name('store');
 
+// Route::post('/store', [UserProfilesController::class, 'store'])->name('store');
+// Route::post('/account', [UserAccountsController::class, 'store'])->name('account.store');;
 
 Route::controller(UserAccountsController::class)->group(function () {
         Route::get('/account',                          'index');
-        //Route::get('/account/{id}',                     'show');
-        // Route::put('/profile/firstname/{id}',           'firstname')->name('profile.firstname');
-        // Route::put('/profile/lastname/{id}',            'lastname')->name('profile.lastname');
-        // Route::put('/profile/middle_initial/{id}',      'middle_initial')->name('profile.middle_initial');
-        // Route::put('/profile/ext/{id}',                 'ext')->name('profile.ext');
-        // Route::put('/profile/course/{id}',              'course')->name('profile.course');
-        // Route::put('/profile/year_level/{id}',          'year_level')->name('profile.year_level');
-        // Route::delete('/profile/{id}',         'destroy');
+        Route::get('/account/{id}',                     'show');
+        Route::put('/account/email/{id}',               'email')->name('account.email');
+        Route::put('/account/password/{id}',            'password')->name('account.password');
+        Route::delete('/profile/{id}',                  'destroy');
 });
 
 

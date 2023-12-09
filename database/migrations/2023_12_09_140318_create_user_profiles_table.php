@@ -19,8 +19,12 @@ return new class extends Migration
             $table->string('ext')->nullable();
             $table->integer('year_level');
             $table->string('course');
-            $table->enum('membership_status', ['active', 'inactive'])->default('active');
             $table->timestamps();
+        });
+
+        Schema::table('user_profiles', function (Blueprint $table) {
+            $table->unsignedBigInteger('account_id');
+            $table->foreign('account_id')->references('account_id')->on('user_accounts');
         });
     }
 

@@ -20,10 +20,6 @@ return new class extends Migration
             $table->enum('role', ['editor', 'author']);
             $table->timestamps();
         });
-        Schema::table('user_accounts', function (Blueprint $table) {
-            $table->unsignedBigInteger('profile_id');
-            $table->foreign('profile_id')->references('profile_id')->on('user_profiles');
-        });
     }
 
     /**

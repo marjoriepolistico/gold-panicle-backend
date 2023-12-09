@@ -25,20 +25,20 @@ class UserAccountsController extends Controller
     {
         $validated = $request->validated();
 
-        //$validated['password'] = Hash::make($validated['password']);
+        $validated['password'] = Hash::make($validated['password']);
 
         $user = UserAccount::create($validated);
 
         return $user;
     }
 
-//        /**
-//      * Display the specified resource.
-//      */
-//     public function show(string $id)
-//     {
-//         return User::findOrFail($id);
-//     }
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        return UserAccount::findOrFail($id);
+    }
 
 //     /**
 //      * Update the specified resource in storage.
@@ -56,49 +56,49 @@ class UserAccountsController extends Controller
 //         return $user;
 //     }
 
-//     /**
-//      * Update the email of the specified resource in storage.
-//      */
-//     public function email(UserRequest $request, string $id)
-//     {
-//         $user = User::findOrFail($id);
+    /**
+     * Update the email of the specified resource in storage.
+     */
+    public function email(UserAccountsRequest $request, string $id)
+    {
+        $user = UserAccount::findOrFail($id);
 
-//         $validated = $request->validated();
- 
-//         $user->email = $validated['email'];
-         
-//         $user->save();
+        $validated = $request->validated();
 
-//         return $user;
-//     }
+        $user->email = $validated['email'];
 
-//     /**
-//      * Update the password of the specified resource in storage.
-//      */
-//     public function password(UserRequest $request, string $id)
-//     {
-//         $user = User::findOrFail($id);
+        $user->save();
 
-//         $validated = $request->validated();
- 
-//         $user->password = Hash::make($validated['password']);
-         
-//         $user->save();
+        return $user;
+    }
 
-//         return $user;
-//     }
+    /**
+     * Update the password of the specified resource in storage.
+     */
+    public function password(UserAccountsRequest $request, string $id)
+    {
+        $user = UserAccount::findOrFail($id);
 
-//     /**
-//      * Remove the specified resource from storage.
-//      */
-//     public function destroy(string $id)
-//     {
-//         $user = User::findOrFail($id);
+        $validated = $request->validated();
 
-//         $user->delete();
+        $user->password = Hash::make($validated['password']);
 
-//         return $user;
-//     }
+        $user->save();
+
+        return $user;
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
+    {
+        $user = UserAccount::findOrFail($id);
+
+        $user->delete();
+
+        return $user;
+    }
 
 //     /**
 //      * Update the image of the specified resource from storage.

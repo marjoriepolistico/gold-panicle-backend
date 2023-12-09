@@ -35,6 +35,7 @@ class UserProfile extends Model
 		'ext',
         'year_level',
         'course',
+        'account_id'
 	];
 
 }

@@ -21,38 +21,35 @@ class UserAccountsRequest extends FormRequest
      */
     public function rules(): array
     {
-        // if( request()->routeIs('user.login') ) {
-        //     return [
-        //         'email'     => 'required|string|email|max:255',
-        //         'password'  => 'required|min:8',
-        //     ];
-        // }
+        if( request()->routeIs('account.login') ) {
             return [
-                'role'      => 'required|string|max:255',
-                'email'     => 'required|string|email|unique:App\Models\UserAccount,email|max:255',
-                'password'  => 'required|min:8|confirmed',
+                'email'     => 'required|string|email|max:255',
+                'password'  => 'required|min:8',
             ];
-        // if( request()->routeIs('account.store') ) {
-        //     return [
-        //         'role'      => 'required|string|max:255',
-        //         'email'     => 'required|string|email|unique:App\Models\UserAccount,email|max:255',
-        //         'password'  => 'required|min:8|confirmed',
-        //     ];
-        // }
-        // else if( request()->routeIs('account.update') ){
-        //     return [
-        //         'role'      => 'required|string|max:255'
-        //     ];
-        // }
-        // else if( request()->routeIs('account.email') ){
-        //     return [
-        //         'email'     => 'required|string|email|max:255',
-        //     ];
-        // }
-        // else if( request()->routeIs('account.password') ){
-        //     return [
-        //         'password'  => 'required|confirmed|min:8',
-        //     ];
-        // }
+        }
+        else if( request()->routeIs('account.store') ) {
+            return [
+                'role'          => 'required|string|max:255',
+                'email'         => 'required|string|email|unique:App\Models\UserAccount,email|max:255',
+                'password'      => 'required|min:8|confirmed',
+            ];
+        }
+        else if( request()->routeIs('account.update') ){
+            return [
+                'role'      => 'required|string|max:255'
+            ];
+        }
+        else if( request()->routeIs('account.email') ){
+            return [
+                'email'     => 'required|string|email|max:255',
+            ];
+        }
+        else if( request()->routeIs('account.password') ){
+            return [
+                'password'  => 'required|confirmed|min:8',
+            ];
+        }
+
+        return [];
     }
 }
