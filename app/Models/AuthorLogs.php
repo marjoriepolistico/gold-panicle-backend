@@ -35,4 +35,9 @@ class AuthorLogs extends Model
         'action',
         'comment'
     ];
+
+    public function userAccount()
+    {
+        return $this->belongsTo(UserAccount::class, 'account_id');
+    }
 }

@@ -20,6 +20,8 @@ return new class extends Migration
             $table->enum('role', ['editor', 'author']);
             $table->timestamps();
         });
+
+    
     }
 
     /**
