@@ -20,7 +20,7 @@ class AuthController extends Controller
     {
         $user = UserProfile::where('email', $request->email)->first();
     
-        if ( !$user || !Hash::check($request->password, $user->password) ) {
+        if ( !$user || !Hash::check($request->password, $user->password) ||  $user->role !== $request->role) {
             throw ValidationException::withMessages([
                 'email' => ['The provided credentials are incorrect.'],
             ]);
@@ -37,7 +37,7 @@ class AuthController extends Controller
     /**
      * Logout using the specified resource.
      */
-    public function logout(Request $request)
+    public function logout(UserProfilesRequest $request)
     {
         $request->user()->tokens()->delete();
 

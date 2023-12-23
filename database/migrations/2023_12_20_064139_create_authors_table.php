@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('authors', function (Blueprint $table) {
             $table->id('author_id');
             $table->unsignedBigInteger('profile_id');
-            $table->foreign('profile_id')->references('id')->on('user_profiles'); // Corrected table name
+            $table->foreign('profile_id')->references('id')->on('user_profiles'); 
         });
     }
 

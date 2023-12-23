@@ -15,7 +15,6 @@ class CoverRequestsController extends Controller
     {
         return  CoverRequests::all();
     }
-    
 
 
     /**

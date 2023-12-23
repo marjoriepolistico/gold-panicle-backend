@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthorLogsController;
 use App\Http\Controllers\Api\AuthorsController;
 use App\Http\Controllers\Api\CoverRequestsController;
 use App\Http\Controllers\Api\EditorialStaffsController;
+use App\Http\Controllers\Api\PublicationManagementsController;
 use App\Http\Controllers\Api\PublicationsController;
 use App\Http\Controllers\Api\UserProfilesController;
 use Illuminate\Http\Request;
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Public API
+/* Public API */
 
 Route::post('/register', [UserProfilesController::class, 'store'])->name('profile.store');;
 
@@ -47,14 +48,32 @@ Route::controller(AuthController::class)->group(function () {
 
 // });
 
+
+
+
+/* Private API */
+
 Route::middleware('auth:sanctum')->group(function () {
 
     Route::controller(UserProfilesController::class)->group(function () {
-        Route::get('/profile',                          'index');
-        Route::get('/profile/{id}',                     'show');
-        Route::put('/profile/{id}',                     'password')->name('profile.password');
-        Route::delete('/profile/{id}',                  'destroy');
+        Route::get('/users',                             'index');         //Shows ALL Users
+        Route::get('/profile/{id}',                      'show');          //shows based on the id
+        //Route::put('/profile/{id}',                      'password')->name('profile.password');
+        Route::delete('/profile/{id}',                   'destroy');
     });
+
+    Route::middleware('auth:sanctum')->get('/profile', function (Request $request) {
+        
+        Route::put('/profile/{id}',                      'password')->name('profile.password');
+
+        return $request->user();
+    });
+
+    // Route::middleware('auth:sanctum')->put('/profile/{id}', function (Request $request) {
+    //     return $request->user();
+    // });
+
+
 
     Route::controller(AuthorsController::class)->group(function () {
         Route::get('/author',                          'index');
@@ -88,15 +107,28 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/authorLogs/{id}',                          'show');
     });
 
-    Route::get('/logout', [AuthController::class, 'logout']);
-
-});
-
-Route::controller(PublicationsController::class)->group(function () {
+    
+    Route::controller(PublicationsController::class)->group(function () {
         Route::get('/publication',                          'index');
         Route::post('/publication',                        'store');
         Route::get('/publication/{id}',                     'show');
         Route::put('/publication/{id}',                     'update');
         Route::delete('/publication/{id}',                  'destroy');
+    });
+
+    Route::controller(PublicationManagementsController::class)->group(function () {
+        Route::get('/management',                          'index');
+        Route::post('/management',                         'store');
+        Route::get('/management/{id}',                     'show');
+        Route::put('/management/{id}',                     'update');
+        Route::delete('/management/{id}',                  'destroy');
 });
+
+    Route::get('/logout', [AuthController::class, 'logout']);
+
+});
+
+
+
+
 
