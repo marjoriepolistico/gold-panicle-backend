@@ -30,6 +30,7 @@ Route::post('/register', [UserProfilesController::class, 'store'])->name('profil
 Route::controller(AuthController::class)->group(function () {
     Route::post('/login',                     'login')->name('profile.login');
 });
+Route::post('/logout', [AuthController::class, 'logout']);
 
 // Route::middleware('auth:sanctum')->get('/profile', function (Request $request) {
     
@@ -55,38 +56,35 @@ Route::controller(AuthController::class)->group(function () {
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    /* User Management */ //Manage by Editorial Staff
     Route::controller(UserProfilesController::class)->group(function () {
-        Route::get('/users',                             'index');         //Shows ALL Users
-        Route::get('/profile/{id}',                      'show');          //shows based on the id
-        //Route::put('/profile/{id}',                      'password')->name('profile.password');
-        Route::delete('/profile/{id}',                   'destroy');
+        Route::get('/user',                              'index');         //Shows ALL Users
+        Route::get('/user/{id}',                         'show');          //shows based on the id
+        Route::delete('/user/{id}',                      'destroy');       //delete user
     });
 
-    Route::middleware('auth:sanctum')->get('/profile', function (Request $request) {
-        
-        Route::put('/profile/{id}',                      'password')->name('profile.password');
-
-        return $request->user();
+    /* User Specific Info */ //Common To all
+    Route::controller(UserProfilesController::class)->group(function () {
+        Route::get('/profile',                           'showUser');
+        Route::put('/profile/password',                  'password')->name('profile.password');     //change password
+        Route::put('/profile/update-info',               'updateInfo') -> name ('profile.updateInfo');      //update user info
     });
 
-    // Route::middleware('auth:sanctum')->put('/profile/{id}', function (Request $request) {
-    //     return $request->user();
-    // });
-
-
-
+     /* Author Management */ //Manage by Editorial Staff
     Route::controller(AuthorsController::class)->group(function () {
         Route::get('/author',                          'index');
         Route::get('/author/{id}',                     'show');
         Route::delete('/author/{id}',                  'destroy');
     });
 
+      /* Editor Management */ //Manage by Editorial Staff
     Route::controller(EditorialStaffsController::class)->group(function () {
         Route::get('/editor',                          'index');
         Route::get('/editor/{id}',                     'show');
         Route::delete('/editor/{id}',                  'destroy');
     });
 
+      /* Article Management */ //Manage by Author
     Route::controller(ArticlesController::class)->group(function () {
         Route::get('/article',                               'index');
         Route::get('/article/{id}',                          'show');
@@ -96,18 +94,20 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/article',                              'store')->name('article.store');
     });
 
+    /* cover request Management */ //Manage by Author
     Route::controller(CoverRequestsController::class)->group(function () {
         Route::get('/cover',                               'index');
         Route::get('/cover/{id}',                          'show');
         Route::delete('/cover/{id}',                       'destroy');
     });
 
+    //to author
     Route::controller(AuthorLogsController::class)->group(function () {
         Route::get('/authorLogs',                               'index');
         Route::get('/authorLogs/{id}',                          'show');
     });
 
-    
+    //to editor
     Route::controller(PublicationsController::class)->group(function () {
         Route::get('/publication',                          'index');
         Route::post('/publication',                        'store');
@@ -116,15 +116,14 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('/publication/{id}',                  'destroy');
     });
 
+    //to editor
     Route::controller(PublicationManagementsController::class)->group(function () {
         Route::get('/management',                          'index');
         Route::post('/management',                         'store');
         Route::get('/management/{id}',                     'show');
         Route::put('/management/{id}',                     'update');
         Route::delete('/management/{id}',                  'destroy');
-});
-
-    Route::get('/logout', [AuthController::class, 'logout']);
+    });
 
 });
 

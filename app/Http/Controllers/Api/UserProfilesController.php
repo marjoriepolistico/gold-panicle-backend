@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserProfilesController extends Controller
 {
-    
+
     /**
      * Display a listing of the resource.
      */
@@ -44,17 +44,41 @@ class UserProfilesController extends Controller
     }
 
 
+    /**
+     * Display the specified resource.
+     */
+    public function showUser(Request $request)
+    {
+        return $request->user();
+    }
+
+
+
     
-/**
+    /**
      * Update the password of the specified resource in storage.
      */
-    public function password(UserProfilesRequest $request, string $id)
+    public function password(UserProfilesRequest $request)
     {
-        $user = UserProfile::findOrFail($id);
+        $user = $request->user();
 
         $validated = $request->validated();
 
         $user->password = Hash::make($validated['password']);
+
+        $user->save();
+
+        return $user;
+    }
+
+    /**
+     * Update the personal information of the specified user.
+     */
+    public function updateInfo(UserProfilesRequest $request)
+    {
+        $user = $request->user();
+
+        $validated = $request->validated();
 
         $user->save();
 

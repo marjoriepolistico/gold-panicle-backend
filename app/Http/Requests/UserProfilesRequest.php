@@ -46,6 +46,17 @@ class UserProfilesRequest extends FormRequest
                     'password'      => 'required|min:8|confirmed',
                 ];
             }
+            else if( request()->routeIs('profile.updateInfo') ) {
+                return [
+                    'firstname'     => 'required|string|max:255',
+                    'lastname'      => 'required|string|max:255',
+                    'email'         => 'required|string|email|unique:App\Models\UserProfile,email|max:255',
+                    'course'        => 'required|string|max:255|',
+                    'year_level'    => 'required|integer',
+                    'student_id'    => 'required|string|max:255',
+                    'position'      => 'required|string|max:255',
+                ];
+            }
             return [];
 
         }
